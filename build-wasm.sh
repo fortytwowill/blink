@@ -14,7 +14,7 @@ OUTPUT="$BLINK_SRC/blink-fixed.wasm"
 rm -rf "$OUTDIR"
 mkdir -p "$OUTDIR"
 
-CFLAGS="--target=wasm32 -matomics -mbulk-memory -O2"
+CFLAGS="--target=wasm32 -matomics -mbulk-memory -O2 -DHAVE_EPOLL_PWAIT1"
 CFLAGS="$CFLAGS -isystem $MUSL/include"
 CFLAGS="$CFLAGS -isystem $BLINK_SRC/tool/stdatomic"
 CFLAGS="$CFLAGS -I$BLINK_SRC"

@@ -6058,7 +6058,7 @@ static i32 SysEventfd2(struct Machine *m, u32 initval, i32 flags) {
 #else /* !__linux__ */
 static i32 SysEventfd2(struct Machine *m, u32 initval, i32 flags) {
   (void)m; (void)initval; (void)flags;
-  return einval();
+  return enosys();
 }
 #endif /* __linux__ */
 

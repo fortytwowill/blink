@@ -539,7 +539,7 @@ int guest_proc_reap(struct GuestProcess *proc) {
     }
   }
 
-  proc->state = GUEST_PROC_REAPED;
+  guest_proc_transition(proc, GUEST_PROC_REAPED);
   proc->next_zombie = NULL;
 
   /* B9: Free child execution resources (Machine and System) */
@@ -550,9 +550,8 @@ int guest_proc_reap(struct GuestProcess *proc) {
     proc->machine = NULL;
   }
 
-  /* Release table slot for recycling */
-  proc_runq_remove(proc);
-  proc->state = GUEST_PROC_FREE;
+  /* Release table slot for recycling (auto-managed by transition) */
+  guest_proc_transition(proc, GUEST_PROC_FREE);
   proc->pid = 0;
   proc->ppid = 0;
   proc->exit_status = 0;
